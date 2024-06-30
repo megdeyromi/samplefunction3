@@ -148,7 +148,7 @@ def handler(ctx, data: io.BytesIO=None):
     product_name = 'ppm'
     generateDesc =  False
     print("debug 1")
-try:
+    try:
         opts, args = getopt.getopt(argv,"hu:p:g:",["url=","product=", "generateDesc="])
         print("debug 2")
     except getopt.GetoptError:
@@ -165,47 +165,7 @@ try:
       elif opt in ("-g", "--generateDesc"):
          generateDesc = eval(arg)
 
-    api_string = '''API documentation:
-Description | {description}
-
-Endpoint | {url}
-{action} {path}
-
-Query parameters table: 
-{query_parameters}
-
-Response schema (JSON object):
-{response}
-
-Each object in the "items" key has the following schema:
-{items}
-'''
-
-    api_string_no_items = '''API documentation:
-Description | {description}
-
-Endpoint | {url}
-{action} {path}
-
-Query parameters table: 
-{query_parameters}
-
-Response schema (JSON object):
-{response}
-'''
-
-    api_string_not_json = '''API documentation:
-Description | {description}
-
-Endpoint | {url}
-{action} {path}
-
-Query parameters table: 
-{query_parameters}
-
-Response schema:
-{response}
-'''
+   
 
        
     try:
