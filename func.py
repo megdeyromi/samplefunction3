@@ -140,28 +140,12 @@ def saveProcessedInfo(info, file):
         json.dump(info, file)
 
 
-def main(argv):
+def main():
     swagger_url =  'https://docs.oracle.com/en/cloud/saas/project-management/24b/fapap/openapi.json'
     product_name = 'ppm'
     generateDesc =  False
     print("debug 1")
-    try:
-        opts, args = getopt.getopt(argv,"hu:p:g:",["url=","product=", "generateDesc="])
-        print("debug 2")
-    except getopt.GetoptError:
-      print ('swagger_file_processor.py -u <swagger URL, e.g.: "https://docs.oracle.com/en/cloud/saas/human-resources/23b/farws/openapi.json"> -p <fusion product e.g. hcm>')
-      sys.exit(2)
-    for opt, arg in opts:
-      if opt == '-h':
-         print ('swagger_file_processor.py -u <swagger URL, e.g.: "https://docs.oracle.com/en/cloud/saas/human-resources/23b/farws/openapi.json"> -p <fusion product e.g. hcm> -g True')
-         sys.exit()
-      elif opt in ("-u", "--url"):
-         swagger_url = arg
-      elif opt in ("-p", "--product"):
-         product_name = arg
-      elif opt in ("-g", "--generateDesc"):
-         generateDesc = eval(arg)
-
+    
     api_string = '''API documentation:
 Description | {description}
 
@@ -319,7 +303,7 @@ def handler(ctx, data: io.BytesIO=None):
 
     print("Vale of name = ", name, flush=True)
     print("Exiting Python Hello World handler", flush=True)
-    main([])
+    main()
     return response.Response(
         ctx, response_data=json.dumps(
             {"message": "Hello {0}".format(name)}),
