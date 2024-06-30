@@ -144,6 +144,11 @@ def saveProcessedInfo(info, file):
 def handler(ctx, data: io.BytesIO=None):
     print("Entering Python Hello World handler", flush=True)
     name = "World"
+    swagger_url =  'https://docs.oracle.com/en/cloud/saas/project-management/24b/fapap/openapi.json'
+    product_name = 'ppm'
+    generateDesc =  False
+    print("debug 1")
+   
     try:
         body = json.loads(data.getvalue())
         name = body.get("name")
