@@ -140,14 +140,21 @@ def saveProcessedInfo(info, file):
         json.dump(info, file)
 
 
-
-def handler(ctx, data: io.BytesIO=None):
-    print("Entering Python Hello World handler", flush=True)
-    name = "World"
+def main(argv):
     swagger_url =  'https://docs.oracle.com/en/cloud/saas/project-management/24b/fapap/openapi.json'
     product_name = 'ppm'
     generateDesc =  False
     print("debug 1")
+    try:
+        opts, args = getopt.getopt(argv,"hu:p:g:",["url=","product=", "generateDesc="])
+        print("debug 2")
+    except getopt.GetoptError:
+      print ('swagger_file_processor.py -u <swagger URL, e.g.: "https://docs.oracle.com/en/cloud/saas/human-resources/23b/farws/openapi.json"> -p <fusion product e.g. hcm>')
+      sys.exit(2)
+
+def handler(ctx, data: io.BytesIO=None):
+    print("Entering Python Hello World handler", flush=True)
+    name = "World"
        
     try:
         body = json.loads(data.getvalue())
