@@ -148,7 +148,66 @@ def handler(ctx, data: io.BytesIO=None):
     product_name = 'ppm'
     generateDesc =  False
     print("debug 1")
-   
+try:
+        opts, args = getopt.getopt(argv,"hu:p:g:",["url=","product=", "generateDesc="])
+        print("debug 2")
+    except getopt.GetoptError:
+      print ('swagger_file_processor.py -u <swagger URL, e.g.: "https://docs.oracle.com/en/cloud/saas/human-resources/23b/farws/openapi.json"> -p <fusion product e.g. hcm>')
+      sys.exit(2)
+    for opt, arg in opts:
+      if opt == '-h':
+         print ('swagger_file_processor.py -u <swagger URL, e.g.: "https://docs.oracle.com/en/cloud/saas/human-resources/23b/farws/openapi.json"> -p <fusion product e.g. hcm> -g True')
+         sys.exit()
+      elif opt in ("-u", "--url"):
+         swagger_url = arg
+      elif opt in ("-p", "--product"):
+         product_name = arg
+      elif opt in ("-g", "--generateDesc"):
+         generateDesc = eval(arg)
+
+    api_string = '''API documentation:
+Description | {description}
+
+Endpoint | {url}
+{action} {path}
+
+Query parameters table: 
+{query_parameters}
+
+Response schema (JSON object):
+{response}
+
+Each object in the "items" key has the following schema:
+{items}
+'''
+
+    api_string_no_items = '''API documentation:
+Description | {description}
+
+Endpoint | {url}
+{action} {path}
+
+Query parameters table: 
+{query_parameters}
+
+Response schema (JSON object):
+{response}
+'''
+
+    api_string_not_json = '''API documentation:
+Description | {description}
+
+Endpoint | {url}
+{action} {path}
+
+Query parameters table: 
+{query_parameters}
+
+Response schema:
+{response}
+'''
+
+       
     try:
         body = json.loads(data.getvalue())
         name = body.get("name")
